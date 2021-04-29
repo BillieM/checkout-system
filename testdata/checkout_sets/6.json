@@ -1,0 +1,18 @@
+[
+    {
+        "code": "A",
+        "quantity": 60
+    },
+    {
+        "code": "B",
+        "quantity": 23
+    },
+    {
+        "code": "C",
+        "quantity": 0
+    },
+    {
+        "code": "D",
+        "quantity": -1
+    }
+]
