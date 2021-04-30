@@ -1,0 +1,18 @@
+{
+    "A": {
+        "Price": 50,
+        "Offer": {}
+    },
+    "B": {
+        "Price": 35,
+        "Offer": {}
+    },
+    "C": {
+        "Price": 25,
+        "Offer": {}
+    },
+    "D": {
+        "Price": 12,
+        "Offer": {}
+    }
+}
