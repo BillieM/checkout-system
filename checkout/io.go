@@ -29,12 +29,11 @@ func DecodeCheckoutData(filePath string) ([]CheckoutLine, error) {
 	return cLSlice, nil
 }
 
+/*
+	DecodePriceData takes a filePath,
+	returns a map of product codes to instances of the Product struct and any errors
+*/
 func DecodePriceData(filePath string) map[string]Product {
-
-	/*
-		DecodePriceData takes a filePath,
-		returns a map of product codes to instances of the Product struct and any errors
-	*/
 
 	return make(map[string]Product)
 }
