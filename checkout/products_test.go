@@ -121,6 +121,54 @@ func Test_GetCheckoutLinePrice(t *testing.T) {
 			0,
 			true,
 		},
+		{
+			"9: negative price positive offer price",
+			checkout.CheckoutLine{
+				"A",
+				14,
+			},
+			map[string]checkout.Product{
+				"A": {
+					Price:         -44,
+					OfferQuantity: 4,
+					OfferPrice:    19,
+				},
+			},
+			-31,
+			false,
+		},
+		{
+			"10: positive price negative offer price",
+			checkout.CheckoutLine{
+				"C",
+				25,
+			},
+			map[string]checkout.Product{
+				"C": {
+					Price:         12,
+					OfferQuantity: 3,
+					OfferPrice:    -2,
+				},
+			},
+			-4,
+			false,
+		},
+		{
+			"11: negative price and negative offer price",
+			checkout.CheckoutLine{
+				"D",
+				66,
+			},
+			map[string]checkout.Product{
+				"D": {
+					Price:         -4,
+					OfferQuantity: 3,
+					OfferPrice:    -5,
+				},
+			},
+			-110,
+			false,
+		},
 	}
 
 	// loop over and run testcases

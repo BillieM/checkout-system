@@ -20,8 +20,9 @@ type (
 
 	// Product stores price information about a particular product.
 	//
-	// Contains a integer price (e.g. 6), the quantity which must be purchased to benefit from the offer,
-	// and the OfferPrice of the given OfferQuantity (e.g. if OfferQuantity is 3, and OfferPrice is 150, 3 items will cost 150).
+	// Price is an integer value (e.g. 6), acting as the unit cost, negative prices are allowed to allow discounting functionality.
+	// OfferQuantity is the quantity which must be purchased to benefit from the offer,
+	// with OfferPrice being the price of the given OfferQuantity (e.g. if OfferQuantity is 3, and OfferPrice is 150, 3 items will cost 150).
 	// If OfferQuantity is 0/ not given, offers will be ignored. A negative OfferQuantity is invalid
 	//
 	// DecodePriceData (io.go) returns a map of [string: Product Code]Product
