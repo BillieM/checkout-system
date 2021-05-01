@@ -80,6 +80,47 @@ func Test_GetCheckoutLinePrice(t *testing.T) {
 			0,
 			true,
 		},
+		{
+			"6: negative offer line quantity",
+			checkout.CheckoutLine{
+				"D",
+				1,
+			},
+			map[string]checkout.Product{
+				"D": {
+					Price:         15,
+					OfferQuantity: -15,
+					OfferPrice:    10,
+				},
+			},
+			0,
+			true,
+		},
+		{
+			"7: checkout line product code not in products list",
+			checkout.CheckoutLine{
+				"A",
+				3,
+			},
+			map[string]checkout.Product{
+				"B": {
+					Price: 10,
+				},
+			},
+			0,
+			true,
+		},
+		{
+			"8: empty checkout line",
+			checkout.CheckoutLine{},
+			map[string]checkout.Product{
+				"A": {
+					Price: 5,
+				},
+			},
+			0,
+			true,
+		},
 	}
 
 	// loop over and run testcases

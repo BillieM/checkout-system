@@ -67,7 +67,7 @@ func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, e
 		}
 	} else {
 		// prod code could not be found in products map
-		return 0, errors.New("product code not found in products map")
+		return 0, errors.New("no product code or product code not found in products map")
 	}
 
 	return lineTotal, nil
