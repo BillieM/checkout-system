@@ -18,6 +18,12 @@ type (
 	}
 )
 
+func ProcessCheckout(checkoutPath string, pricesPath string) (int, error) {
+	// parse
+
+	return 0, nil
+}
+
 func (cL CheckoutLine) GetCheckoutLinePrice() (int, error) {
 	return 0, nil
 }

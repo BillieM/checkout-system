@@ -265,6 +265,7 @@ func Test_DecodePriceData(t *testing.T) {
 			if (err != nil) != testCase.expErr {
 				t.Errorf("case: %s, expected err: %v, got err: %v", testCase.name, testCase.expErr, err)
 			}
+			// check returned map[string]Product equal to expected
 			if !reflect.DeepEqual(result, testCase.expected) {
 				t.Errorf("case: %s, map[string]Product different from expected", testCase.name)
 			}
