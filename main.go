@@ -5,5 +5,8 @@ import (
 )
 
 func main() {
-	checkout.CLI()
+	err := checkout.CheckoutCLI()
+	if err != nil {
+		panic(err)
+	}
 }
