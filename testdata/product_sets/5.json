@@ -13,8 +13,7 @@
     },
     "D": {
         "Price": -124,
-        "Offer": {
-            "5": -555
-        }
+        "OfferQuantity": 5,
+        "OfferPrice": -555
     }
 }

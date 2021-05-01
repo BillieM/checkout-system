@@ -1,15 +1,13 @@
 {
     "A": {
         "Price": 50,
-        "Offer": {
-            "3": 140
-        }
+        "OfferQuantity": 3,
+        "OfferPrice": 140
     },
     "B": {
         "Price": 35,
-        "Offer": {
-            "2": 60
-        }
+        "OfferQuantity": 2,
+        "OfferPrice": 60
     },
     "C": {
         "Price": 25,

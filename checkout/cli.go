@@ -6,32 +6,33 @@ import (
 	"os"
 )
 
+// Constants CheckoutPath and ProductsPath serve as default paths to JSON data should they not be given.
 const (
 	// Default checkout data filePath
 	CheckoutPath = "./checkout_data.json"
 
 	// Default price data filePath
-	PricesPath = "./prices_config.json"
+	ProductsPath = "./product_data.json"
 )
 
-//ArgInfo is returned from getArgInfo and contains the filepaths for the checkout file/ prices file (if they are given)
+//ArgInfo is returned from getArgInfo and contains the filepaths for the checkout file/ products file (if they are given)
 //
 //Filepaths may be relative or absolute
 type ArgInfo struct {
-	checkoutFile string // checkout json file path
-	pricesFile   string // prices json file path
+	checkoutPath string // checkout json file path
+	productsPath string // products json file path
 }
 
 // getArgInfo returns an instance of ArgInfo.
 //
-// if the checkout info file path has not been given, or the prices flag has not been given,
-//checkoutFile/ pricesFile will be returned as "" respectively.
+// if the checkout info file path has not been given, or the products flag has not been given,
+//checkoutFile/ productsFile will be returned as "" respectively.
 //
 //Filepaths may be relative or absolute.
 func getArgInfo() ArgInfo {
 
-	// get prices flag value for prices file
-	pricesPath := flag.String("prices", "", "optional filepath to prices JSON")
+	// get products flag value for products file
+	productsPath := flag.String("products", "", "optional filepath to products JSON")
 	flag.Parse()
 
 	// get first positional argument for checkout file
@@ -39,8 +40,8 @@ func getArgInfo() ArgInfo {
 
 	// set to default paths if flag empty/ checkout argument not given
 
-	if *pricesPath == "" {
-		*pricesPath = PricesPath
+	if *productsPath == "" {
+		*productsPath = ProductsPath
 	}
 
 	if checkoutPath == "" {
@@ -48,17 +49,17 @@ func getArgInfo() ArgInfo {
 	}
 
 	return ArgInfo{
-		checkoutFile: checkoutPath,
-		pricesFile:   *pricesPath,
+		checkoutPath: checkoutPath,
+		productsPath: *productsPath,
 	}
 }
 
-// Called from main package, primary entry point.
+// CheckoutCLI is called from the parent main package, and is the primary entry point.
 //
 // Program takes a filename as an argument, expecting a json file of checkout lines,
 // If no filename argument is given, the default checkout dataset will instead be used.
 //
-// An optional prices flag can also be given to specify a path to a different price list.
+// An optional products flag can also be given to specify a path to a different products list.
 func CheckoutCLI() error {
 	// --help info
 	flag.Usage = func() {
@@ -69,13 +70,13 @@ func CheckoutCLI() error {
 	argInfo := getArgInfo()
 
 	// logic to extract from json/ calc checkout value
-	result, err := ProcessCheckout(argInfo.checkoutFile, argInfo.pricesFile)
+	result, err := ProcessCheckout(argInfo.checkoutPath, argInfo.productsPath)
 
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("checkout file: %s\nprices file: %s\ntotal value of checkout: %v\n", argInfo.checkoutFile, argInfo.pricesFile, result)
+	fmt.Printf("checkout file: %s\nproducts file: %s\ntotal value of checkout: %v\n", argInfo.checkoutPath, argInfo.productsPath, result)
 
 	return nil
 }

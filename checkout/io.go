@@ -34,9 +34,9 @@ func DecodeCheckoutData(filePath string) ([]CheckoutLine, error) {
 }
 
 /*
-	DecodePriceData takes a filePath to a valid
+	DecodeProductData takes a filePath to a valid
 */
-func DecodePriceData(filePath string) (map[string]Product, error) {
+func DecodeProductData(filePath string) (map[string]Product, error) {
 
 	// read file into byte slice
 	byteSlice, err := ioutil.ReadFile(filePath)

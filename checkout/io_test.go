@@ -127,8 +127,8 @@ func Test_DecodeCheckoutData(t *testing.T) {
 	}
 }
 
-// Tests the DecodePriceData function using data from testdata/prices_sets
-func Test_DecodePriceData(t *testing.T) {
+// Tests the DecodeProductData function using data from testdata/product_sets
+func Test_DecodeProductData(t *testing.T) {
 
 	testCases := []struct {
 		name     string
@@ -141,24 +141,20 @@ func Test_DecodePriceData(t *testing.T) {
 			"1.json",
 			map[string]checkout.Product{
 				"A": {
-					Price: 50,
-					Offer: map[int]int{
-						3: 140,
-					},
+					Price:         50,
+					OfferQuantity: 3,
+					OfferPrice:    140,
 				},
 				"B": {
-					Price: 35,
-					Offer: map[int]int{
-						2: 60,
-					},
+					Price:         35,
+					OfferQuantity: 2,
+					OfferPrice:    60,
 				},
 				"C": {
 					Price: 25,
-					Offer: map[int]int{},
 				},
 				"D": {
 					Price: 12,
-					Offer: map[int]int{},
 				},
 			},
 			false,
@@ -169,19 +165,15 @@ func Test_DecodePriceData(t *testing.T) {
 			map[string]checkout.Product{
 				"A": {
 					Price: 50,
-					Offer: map[int]int{},
 				},
 				"B": {
 					Price: 35,
-					Offer: map[int]int{},
 				},
 				"C": {
 					Price: 25,
-					Offer: map[int]int{},
 				},
 				"D": {
 					Price: 12,
-					Offer: map[int]int{},
 				},
 			},
 			false,
@@ -193,15 +185,12 @@ func Test_DecodePriceData(t *testing.T) {
 			map[string]checkout.Product{
 				"A": {
 					Price: 50,
-					Offer: map[int]int{},
 				},
 				"B": {
 					Price: 35,
-					Offer: map[int]int{},
 				},
 				"C": {
 					Price: 25,
-					Offer: map[int]int{},
 				},
 			},
 			false,
@@ -212,19 +201,15 @@ func Test_DecodePriceData(t *testing.T) {
 			map[string]checkout.Product{
 				"A": {
 					Price: 0,
-					Offer: map[int]int{},
 				},
 				"B": {
 					Price: 0,
-					Offer: map[int]int{},
 				},
 				"C": {
 					Price: 0,
-					Offer: map[int]int{},
 				},
 				"D": {
 					Price: 0,
-					Offer: map[int]int{},
 				},
 			},
 			false,
@@ -235,21 +220,17 @@ func Test_DecodePriceData(t *testing.T) {
 			map[string]checkout.Product{
 				"A": {
 					Price: -412,
-					Offer: map[int]int{},
 				},
 				"B": {
 					Price: -6123,
-					Offer: map[int]int{},
 				},
 				"C": {
 					Price: -91234,
-					Offer: map[int]int{},
 				},
 				"D": {
-					Price: -124,
-					Offer: map[int]int{
-						5: -555,
-					},
+					Price:         -124,
+					OfferQuantity: 5,
+					OfferPrice:    -555,
 				},
 			},
 			false,
@@ -259,8 +240,8 @@ func Test_DecodePriceData(t *testing.T) {
 	for _, testCase := range testCases {
 		// run subtest for each test case
 		t.Run(testCase.name, func(t *testing.T) {
-			testDataPath := "../testdata/price_sets/" + testCase.fileName
-			result, err := checkout.DecodePriceData(testDataPath)
+			testDataPath := "../testdata/product_sets/" + testCase.fileName
+			result, err := checkout.DecodeProductData(testDataPath)
 			// check if err expected
 			if (err != nil) != testCase.expErr {
 				t.Errorf("case: %s, expected err: %v, got err: %v", testCase.name, testCase.expErr, err)
