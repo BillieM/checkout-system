@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// Constants CheckoutPath and ProductsPath serve as default paths to JSON data should they not be given.
+// Constants CheckoutPath and ProductsPath serve as default paths to JSON data files should they not be given.
 const (
 	// Default checkout data filePath
 	CheckoutPath = "./checkout_data.json"

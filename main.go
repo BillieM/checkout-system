@@ -10,3 +10,17 @@ func main() {
 		panic(err)
 	}
 }
+
+/*
+
+to do
+
+ProcessCheckout logic and tests
+
+GetCheckoutPrice tests
+
+cli tests
+
+main test ?? (maybe ??)
+
+*/

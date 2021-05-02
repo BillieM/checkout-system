@@ -67,7 +67,6 @@ func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, e
 			lineTotal += cL.Quantity * prod.Price
 		}
 	} else {
-		// prod code could not be found in products map
 		return 0, errors.New("no product code or product code not found in products map")
 	}
 
@@ -78,7 +77,7 @@ func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, e
 //
 // Checkout lines are iterated over, for each the CheckoutLine method is called, and the lineTotal is added to the sum
 //
-// If an error occurs in GetCheckoutLinePrice, it is returned from this method.
+// If an error occurs in GetCheckoutLinePrice, it is returned from this function.
 func GetCheckoutPrice(cLSlice []CheckoutLine, products map[string]Product) (int, error) {
 
 	checkoutTotal := 0
