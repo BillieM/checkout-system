@@ -2,7 +2,6 @@ package checkout
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 )
 
@@ -44,8 +43,6 @@ func DecodeProductData(filePath string) (map[string]Product, error) {
 	if err != nil {
 		return map[string]Product{}, err
 	}
-
-	fmt.Printf("%s", byteSlice)
 
 	// marshal data from byteSlice into a map of [prodCodes]Product
 	prodMap := map[string]Product{}

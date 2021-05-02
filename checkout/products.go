@@ -33,10 +33,29 @@ type (
 	}
 )
 
+// ProcessCheckout is a function from calculating the value of a checkout.
+//
+// It accepts the path to the checkout json file, and the path to the products list json file.
+//
+// Returned is the total value from GetCheckoutPrice and any errors that have occured calling other functions.
 func ProcessCheckout(checkoutPath string, productsPath string) (int, error) {
-	// parse
 
-	return 0, nil
+	// get checkout line arr and products map
+	checkoutLines, err := DecodeCheckoutData(checkoutPath)
+	if err != nil {
+		return 0, err
+	}
+	products, err := DecodeProductData(productsPath)
+	if err != nil {
+		return 0, err
+	}
+
+	checkoutPrice, err := GetCheckoutPrice(checkoutLines, products)
+	if err != nil {
+		return 0, err
+	}
+
+	return checkoutPrice, nil
 }
 
 // GetCheckoutLinePrice is a method for CheckoutLine which also accepts a map of [productCode]Product representing product prices and their current offers.

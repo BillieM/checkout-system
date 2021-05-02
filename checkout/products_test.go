@@ -141,6 +141,17 @@ func Test_GetCheckoutLinePrice(t *testing.T) {
 			92670188,
 			false,
 		},
+		{
+			"13: unused offer",
+			checkout.CheckoutLine{"D", 4},
+			map[string]checkout.Product{
+				"D": {
+					Price: 12, OfferQuantity: 100, OfferPrice: 4,
+				},
+			},
+			48,
+			false,
+		},
 	}
 
 	// loop over and run testcases
@@ -223,6 +234,76 @@ func Test_GetCheckoutPrice(t *testing.T) {
 			0,
 			true,
 		},
+		{
+			"4: no checkout lines",
+			[]checkout.CheckoutLine{},
+			map[string]checkout.Product{},
+			0,
+			false,
+		},
+		{
+			"5: products map missing a product",
+			[]checkout.CheckoutLine{
+				{"A", 66},
+				{"B", 3123},
+				{"C", 661},
+				{"D", 4},
+			},
+			map[string]checkout.Product{
+				"A": {Price: 50, OfferQuantity: 3, OfferPrice: 140},
+				"B": {Price: 35, OfferQuantity: 2, OfferPrice: 60},
+				"C": {Price: 25},
+			},
+			0,
+			true,
+		},
+		{
+			"6: no offers",
+			[]checkout.CheckoutLine{
+				{"A", 12},
+				{"B", 4},
+				{"C", 2},
+				{"D", 1},
+			},
+			map[string]checkout.Product{
+				"A": {Price: 50},
+				"B": {Price: 35},
+				"C": {Price: 25},
+				"D": {Price: 14},
+			},
+			804,
+			false,
+		},
+		{
+			"7: all products have offers",
+			[]checkout.CheckoutLine{
+				{"A", 12},
+				{"B", 4},
+				{"C", 22},
+			},
+			map[string]checkout.Product{
+				"A": {Price: 50, OfferQuantity: 4, OfferPrice: 150},
+				"B": {Price: 35, OfferQuantity: 7, OfferPrice: 100},
+				"C": {Price: 25, OfferQuantity: 2, OfferPrice: 28},
+			},
+			898,
+			false,
+		},
+		{
+			"8: negative prices and negative offer prices",
+			[]checkout.CheckoutLine{
+				{"A", 12},
+				{"B", 4},
+				{"C", 15},
+			},
+			map[string]checkout.Product{
+				"A": {Price: -50},
+				"B": {Price: -12, OfferQuantity: 5, OfferPrice: -30},
+				"C": {Price: -4, OfferQuantity: 6, OfferPrice: -20},
+			},
+			-700,
+			false,
+		},
 	}
 
 	// loop over and run test cases
@@ -240,4 +321,8 @@ func Test_GetCheckoutPrice(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_ProcessCheckout(t *testing.T) {
+
 }
