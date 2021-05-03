@@ -3,6 +3,7 @@ package checkout_test
 import (
 	"bytes"
 	"os"
+	"reflect"
 	"testing"
 
 	"github.com/billiem/checkout-system/checkout"
@@ -16,8 +17,8 @@ func Test_CheckoutCLI(t *testing.T) {
 		expErr   bool
 	}{
 		{
-			"example data",
-			[]string{"go run .", "-products=../testdata/product_sets/1.json", "../testdata/checkout_sets/1.json"},
+			"1: example data",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/1.json", "../testdata/checkout_sets/1.json"},
 			"checkout file: ../testdata/checkout_sets/1.json\nproducts file: ../testdata/product_sets/1.json\ntotal value of checkout: 284\n",
 			false,
 		},
@@ -51,13 +52,29 @@ func Test_GetArgInfo(t *testing.T) {
 		name     string
 		args     []string
 		expected checkout.ArgInfo
-	}{}
+	}{
+		{
+			"1: no arg/ flag given",
+			[]string{"./checkout_system"},
+			checkout.ArgInfo{
+				"./checkout_data.json",
+				"./product_data.json",
+			},
+		},
+	}
 
 	// loop over test cases
 	for _, testCase := range testCases {
 		// run subtest for each testcase
 		t.Run(testCase.name, func(t *testing.T) {
+			// set args and call GetArgInfo
+			os.Args = testCase.args
 
+			// check expected argInfo matches returned argInfo
+			result := checkout.GetArgInfo()
+			if !reflect.DeepEqual(result, testCase.expected) {
+				t.Errorf("expected: %v, got %v", testCase.expected, result)
+			}
 		})
 	}
 

@@ -20,8 +20,8 @@ const (
 //
 //Filepaths may be relative or absolute
 type ArgInfo struct {
-	checkoutPath string // checkout json file path
-	productsPath string // products json file path
+	CheckoutPath string // checkout json file path
+	ProductsPath string // products json file path
 }
 
 // getArgInfo returns an instance of ArgInfo.
@@ -29,15 +29,19 @@ type ArgInfo struct {
 // if the checkout info file path has not been given, or the products flag has not been given,
 // checkoutFile/ productsFile will be returned as "" respectively.
 //
-//Filepaths may be relative or absolute.
+// Filepaths may be relative or absolute.
 func GetArgInfo() ArgInfo {
 
+	var productsPath string
+
+	commandLine := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+
 	// get products flag value for products file
-	productsPath := flag.String("products", ProductsPath, "optional filepath to products JSON")
-	flag.Parse()
+	commandLine.StringVar(&productsPath, "products", ProductsPath, "optional filepath to products JSON")
+	commandLine.Parse(os.Args[1:])
 
 	// get first positional argument for checkout file
-	checkoutPath := flag.Arg(0)
+	checkoutPath := commandLine.Arg(0)
 
 	// set to default CheckoutPath if flag empty/ checkout argument not given
 
@@ -46,8 +50,8 @@ func GetArgInfo() ArgInfo {
 	}
 
 	return ArgInfo{
-		checkoutPath: checkoutPath,
-		productsPath: *productsPath,
+		CheckoutPath: checkoutPath,
+		ProductsPath: productsPath,
 	}
 }
 
@@ -68,13 +72,13 @@ func CheckoutCLI(out io.Writer) error {
 	argInfo := GetArgInfo()
 
 	// logic to extract from json/ calc checkout value
-	result, err := ProcessCheckout(argInfo.checkoutPath, argInfo.productsPath)
+	result, err := ProcessCheckout(argInfo.CheckoutPath, argInfo.ProductsPath)
 
 	if err != nil {
 		return err
 	}
 
-	fmt.Fprintf(out, "checkout file: %s\nproducts file: %s\ntotal value of checkout: %v\n", argInfo.checkoutPath, argInfo.productsPath, result)
+	fmt.Fprintf(out, "checkout file: %s\nproducts file: %s\ntotal value of checkout: %v\n", argInfo.CheckoutPath, argInfo.ProductsPath, result)
 
 	return nil
 }
