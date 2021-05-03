@@ -323,6 +323,84 @@ func Test_GetCheckoutPrice(t *testing.T) {
 	}
 }
 
+// Test_ProcessCheckout tests the ProcessCheckout function.
+//
+// It passes in a filepath to the checkout json data, and a filepath to the products json data,
+// testing for the correct checkout value and whether or not an error was expected.
 func Test_ProcessCheckout(t *testing.T) {
+	testCases := []struct {
+		name         string
+		checkoutFile string
+		productsFile string
+		expected     int
+		expErr       bool
+	}{
+		{
+			"1: given example data",
+			"1.json",
+			"1.json",
+			284,
+			false,
+		},
+		{
+			"2: example checkout data with product data with no offers",
+			"1.json",
+			"2.json",
+			304,
+			false,
+		},
+		{
+			"3: checkout data with 0 quantities and example product data",
+			"4.json",
+			"1.json",
+			0,
+			false,
+		},
+		{
+			"4: checkout data with negative quantities and example product data",
+			"7.json",
+			"1.json",
+			0,
+			true,
+		},
+		{
+			"5: example checkout data with product data with negative prices",
+			"1.json",
+			"5.json",
+			-111087,
+			false,
+		},
+		{
+			"6: non-existent checkout file",
+			"fake.json",
+			"1.json",
+			0,
+			true,
+		},
+		{
+			"7: non-existent products file",
+			"1.json",
+			"fake.json",
+			0,
+			true,
+		},
+	}
 
+	// loop over test cases
+	for _, testCase := range testCases {
+		// run subtest for each test case
+		t.Run(testCase.name, func(t *testing.T) {
+			checkoutPath := "../testdata/checkout_sets/" + testCase.checkoutFile
+			productsPath := "../testdata/product_sets/" + testCase.productsFile
+			result, err := checkout.ProcessCheckout(checkoutPath, productsPath)
+			// check if err expected
+			if (err != nil) != testCase.expErr {
+				t.Errorf("expected error: %v, got err: %s", testCase.expErr, err)
+			}
+			// compare result val to expected val
+			if result != testCase.expected {
+				t.Errorf("expected checkout value of: %v, got checkout value of %v", testCase.expected, result)
+			}
+		})
+	}
 }

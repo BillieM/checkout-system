@@ -15,12 +15,12 @@ func main() {
 
 to do
 
-ProcessCheckout logic and tests
-
-GetCheckoutPrice tests
+ProcessCheckout tests
 
 cli tests
 
 main test ?? (maybe ??)
+
+readme
 
 */
