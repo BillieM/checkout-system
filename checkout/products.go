@@ -93,10 +93,9 @@ func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, e
 	return lineTotal, nil
 }
 
-// GetCheckoutPrice accepts a slice of CheckoutLine and a map of representing product prices,
-// this map uses productCode as the key, and a Product as the value.
+// GetCheckoutPrice accepts a slice of CheckoutLine and a map of representing product prices, this map uses productCode as the key, and a Product as the value.
 //
-// Checkout lines are iterated over, for each the CheckoutLine method is called, and the lineTotal is added to the sum
+// Checkout lines are iterated over, for each the CheckoutLine method is called, and the lineTotal is added to the sum.
 //
 // If an error occurs in GetCheckoutLinePrice, it is returned from this function.
 func GetCheckoutPrice(cLSlice []CheckoutLine, products map[string]Product) (int, error) {

@@ -16,17 +16,17 @@ const (
 	ProductsPath = "./product_data.json"
 )
 
-//ArgInfo is returned from getArgInfo and contains the filepaths for the checkout file/ products file (if they are given)
+// ArgInfo is returned from getArgInfo and contains the filepaths for the checkout file/ products file (if they are given)
 //
-//Filepaths may be relative or absolute
+// Filepaths may be relative or absolute
 type ArgInfo struct {
 	CheckoutPath string // checkout json file path
 	ProductsPath string // products json file path
 }
 
-// getArgInfo returns an instance of ArgInfo.
+// GetArgInfo returns an instance of ArgInfo.
 //
-// if the checkout info file path has not been given, or the products flag has not been given,
+// If the checkout info file path has not been given, or the products flag has not been given,
 // checkoutFile/ productsFile will be returned as "" respectively.
 //
 // Filepaths may be relative or absolute.
