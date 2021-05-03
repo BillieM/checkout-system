@@ -7,3 +7,5 @@ checkout-system provides utilities to calculate a total checkout price from JSON
 Documentation can be viewed at: <a href="https://pkg.go.dev/github.com/billiem/checkout-system/checkout"> godoc </a>
 
 # Usage
+
+The checkout package can be
