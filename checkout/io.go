@@ -32,9 +32,11 @@ func DecodeCheckoutData(filePath string) ([]CheckoutLine, error) {
 	return cLSlice, nil
 }
 
-/*
-	DecodeProductData takes a filePath to a valid
-*/
+// DecodeProductData takes a filePath and returns a map of [productCode]Product.
+//
+// An error is returned if the file cannot be read but to a non-existent file or invalid filePath,
+// or if the files content is not JSON data capable of being unmarshaled into map[string]Product.
+// (i.e. it must contain an object using product code strings as keys to another object with Price/ OfferQuantity/ OfferPrice)
 func DecodeProductData(filePath string) (map[string]Product, error) {
 
 	// read file into byte slice
