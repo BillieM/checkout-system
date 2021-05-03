@@ -58,7 +58,8 @@ func ProcessCheckout(checkoutPath string, productsPath string) (int, error) {
 	return checkoutPrice, nil
 }
 
-// GetCheckoutLinePrice is a method for CheckoutLine which also accepts a map of [productCode]Product representing product prices and their current offers.
+// GetCheckoutLinePrice is a method for CheckoutLine which also accepts a map representing product prices,
+// this map uses productCode as the key, and a Product as the value.
 //
 // returns an error if the checkout line quantity is negative, or if the offer quantity is negative
 func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, error) {
@@ -92,7 +93,8 @@ func (cL CheckoutLine) GetCheckoutLinePrice(products map[string]Product) (int, e
 	return lineTotal, nil
 }
 
-// GetCheckoutPrice accepts a slice of CheckoutLine and a map of [productCode]Product representing product prices.
+// GetCheckoutPrice accepts a slice of CheckoutLine and a map of representing product prices,
+// this map uses productCode as the key, and a Product as the value.
 //
 // Checkout lines are iterated over, for each the CheckoutLine method is called, and the lineTotal is added to the sum
 //
