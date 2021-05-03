@@ -40,6 +40,8 @@ func GetArgInfo() ArgInfo {
 	commandLine.StringVar(&productsPath, "products", ProductsPath, "optional filepath to products JSON")
 	commandLine.Parse(os.Args[1:])
 
+	fmt.Println(commandLine.Args())
+
 	// get first positional argument for checkout file
 	checkoutPath := commandLine.Arg(0)
 

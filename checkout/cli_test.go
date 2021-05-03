@@ -61,6 +61,38 @@ func Test_GetArgInfo(t *testing.T) {
 				"./product_data.json",
 			},
 		},
+		{
+			"2: only checkout arg given",
+			[]string{"./checkout_system", "./other_checkout_data.json"},
+			checkout.ArgInfo{
+				"./other_checkout_data.json",
+				"./product_data.json",
+			},
+		},
+		{
+			"3: only products flag given",
+			[]string{"./checkout_system", "-products=./other_products_data.json"},
+			checkout.ArgInfo{
+				"./checkout_data.json",
+				"./other_products_data.json",
+			},
+		},
+		{
+			"4: checkout arg/ products flag both given",
+			[]string{"./checkout_system", "-products=./other_products_data.json", "./other_checkout_data.json"},
+			checkout.ArgInfo{
+				"./other_checkout_data.json",
+				"./other_products_data.json",
+			},
+		},
+		{
+			"5: checkout arg/ products flag both given, + additional positional arg",
+			[]string{"./checkout_system", "-products=./other_products_data.json", "./other_checkout_data.json", "./ignore_products_data.json"},
+			checkout.ArgInfo{
+				"./other_checkout_data.json",
+				"./other_products_data.json",
+			},
+		},
 	}
 
 	// loop over test cases
