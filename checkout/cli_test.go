@@ -47,5 +47,18 @@ func Test_CheckoutCLI(t *testing.T) {
 }
 
 func Test_GetArgInfo(t *testing.T) {
+	testCases := []struct {
+		name     string
+		args     []string
+		expected checkout.ArgInfo
+	}{}
+
+	// loop over test cases
+	for _, testCase := range testCases {
+		// run subtest for each testcase
+		t.Run(testCase.name, func(t *testing.T) {
+
+		})
+	}
 
 }

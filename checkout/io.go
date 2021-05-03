@@ -5,13 +5,11 @@ import (
 	"io/ioutil"
 )
 
-/*
-	DecodeCheckoutData takes a filePath and returns a slice of instances of CheckoutLine.
-
-	An error is returned if the file cannot be read due to a non-existent file or invalid filePath,
-	or if the the files content is not JSON data capable of being being unmarshaled into []CheckoutLine
-	(i.e. it must be contain an array of objects with a product code and quantity value)
-*/
+// DecodeCheckoutData takes a filePath and returns a slice of instances of CheckoutLine.
+//
+// An error is returned if the file cannot be read due to a non-existent file or invalid filePath,
+// or if the the files content is not JSON data capable of being being unmarshaled into []CheckoutLine
+// (i.e. it must be contain an array of objects with a product code and quantity value)
 func DecodeCheckoutData(filePath string) ([]CheckoutLine, error) {
 
 	// read file into byteSlice
