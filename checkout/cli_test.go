@@ -13,7 +13,7 @@ func Test_CheckoutCLI(t *testing.T) {
 	testCases := []struct {
 		name     string
 		args     []string
-		expected string
+		expected string // expected string written to io.writer passed into CheckoutCli func
 		expErr   bool
 	}{
 		{
@@ -21,6 +21,42 @@ func Test_CheckoutCLI(t *testing.T) {
 			[]string{"./checkout_system", "-products=../testdata/product_sets/1.json", "../testdata/checkout_sets/1.json"},
 			"checkout file: ../testdata/checkout_sets/1.json\nproducts file: ../testdata/product_sets/1.json\ntotal value of checkout: 284\n",
 			false,
+		},
+		{
+			"2: example checkout data with product data with no offers",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/2.json", "../testdata/checkout_sets/1.json"},
+			"checkout file: ../testdata/checkout_sets/1.json\nproducts file: ../testdata/product_sets/2.json\ntotal value of checkout: 304\n",
+			false,
+		},
+		{
+			"3: checkout data with 0 quantities and example product data",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/1.json", "../testdata/checkout_sets/4.json"},
+			"checkout file: ../testdata/checkout_sets/4.json\nproducts file: ../testdata/product_sets/1.json\ntotal value of checkout: 0\n",
+			false,
+		},
+		{
+			"4: checkout data with negative quantities and example product data",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/4.json", "../testdata/checkout_sets/7.json"},
+			"",
+			true,
+		},
+		{
+			"5: example checkout data with product data with negative prices",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/5.json", "../testdata/checkout_sets/1.json"},
+			"checkout file: ../testdata/checkout_sets/1.json\nproducts file: ../testdata/product_sets/5.json\ntotal value of checkout: -111087\n",
+			false,
+		},
+		{
+			"6: non-existent checkout file",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/1.json", "../testdata/checkout_sets/fake.json"},
+			"",
+			true,
+		},
+		{
+			"7: non-existent product file",
+			[]string{"./checkout_system", "-products=../testdata/product_sets/fake.json", "../testdata/checkout_sets/1.json"},
+			"",
+			true,
 		},
 	}
 
