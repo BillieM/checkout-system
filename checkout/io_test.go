@@ -12,13 +12,13 @@ func Test_DecodeCheckoutData(t *testing.T) {
 
 	testCases := []struct {
 		name     string
-		fileName string
+		filePath string
 		expected []checkout.CheckoutLine
 		expErr   bool
 	}{
 		{
 			"1: given example case",
-			"1.json",
+			"../testdata/checkout_sets/1.json",
 			[]checkout.CheckoutLine{
 				{"A", 3},
 				{"B", 3},
@@ -29,7 +29,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"2: normal data",
-			"2.json",
+			"../testdata/checkout_sets/2.json",
 			[]checkout.CheckoutLine{
 				{"A", 4},
 				{"B", 1},
@@ -40,7 +40,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"3: only 3 lines",
-			"3.json",
+			"../testdata/checkout_sets/3.json",
 			[]checkout.CheckoutLine{
 				{"A", 4},
 				{"B", 0},
@@ -50,7 +50,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"4: all 0 quantity",
-			"4.json",
+			"../testdata/checkout_sets/4.json",
 			[]checkout.CheckoutLine{
 				{"A", 0},
 				{"B", 0},
@@ -61,7 +61,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"5: only 3 lines, higher vals, 1 qty 0",
-			"5.json",
+			"../testdata/checkout_sets/5.json",
 			[]checkout.CheckoutLine{
 				{"A", 94124},
 				{"B", 999991023},
@@ -71,7 +71,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"6: 1 line with negative qty",
-			"6.json",
+			"../testdata/checkout_sets/6.json",
 			[]checkout.CheckoutLine{
 				{"A", 60},
 				{"B", 23},
@@ -82,7 +82,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"7: 4 lines with negative qty",
-			"7.json",
+			"../testdata/checkout_sets/7.json",
 			[]checkout.CheckoutLine{
 				{"A", -4},
 				{"B", -7},
@@ -93,19 +93,19 @@ func Test_DecodeCheckoutData(t *testing.T) {
 		},
 		{
 			"8: blank txt file",
-			"0.txt",
+			"../testdata/checkout_sets/0.txt",
 			[]checkout.CheckoutLine{},
 			true,
 		},
 		{
 			"9: non-existent file",
-			"fake.json",
+			"../testdata/checkout_sets/fake.json",
 			[]checkout.CheckoutLine{},
 			true,
 		},
 		{
 			"10: invalid json format",
-			"8.json",
+			"../testdata/checkout_sets/8.json",
 			[]checkout.CheckoutLine{},
 			true,
 		},
@@ -113,8 +113,7 @@ func Test_DecodeCheckoutData(t *testing.T) {
 	for _, testCase := range testCases {
 		// run subtest for each testCase
 		t.Run(testCase.name, func(t *testing.T) {
-			testDataPath := "../testdata/checkout_sets/" + testCase.fileName
-			result, err := checkout.DecodeCheckoutData(testDataPath)
+			result, err := checkout.DecodeCheckoutData(testCase.filePath)
 			// check if err expected
 			if (err != nil) != testCase.expErr {
 				t.Errorf("case: %s, expected err: %v, got err: %v", testCase.name, testCase.expErr, err)
@@ -132,13 +131,13 @@ func Test_DecodeProductData(t *testing.T) {
 
 	testCases := []struct {
 		name     string
-		fileName string
+		filePath string
 		expected map[string]checkout.Product
 		expErr   bool
 	}{
 		{
 			"1: given example testData",
-			"1.json",
+			"../testdata/product_sets/1.json",
 			map[string]checkout.Product{
 				"A": {
 					Price:         50,
@@ -161,7 +160,7 @@ func Test_DecodeProductData(t *testing.T) {
 		},
 		{
 			"2: valid input data with no offers",
-			"2.json",
+			"../testdata/product_sets/2.json",
 			map[string]checkout.Product{
 				"A": {
 					Price: 50,
@@ -181,7 +180,7 @@ func Test_DecodeProductData(t *testing.T) {
 
 		{
 			"3: only 3 lines",
-			"3.json",
+			"../testdata/product_sets/3.json",
 			map[string]checkout.Product{
 				"A": {
 					Price: 50,
@@ -197,7 +196,7 @@ func Test_DecodeProductData(t *testing.T) {
 		},
 		{
 			"4: all price 0",
-			"4.json",
+			"../testdata/product_sets/4.json",
 			map[string]checkout.Product{
 				"A": {
 					Price: 0,
@@ -216,7 +215,7 @@ func Test_DecodeProductData(t *testing.T) {
 		},
 		{
 			"5: all negative prices",
-			"5.json",
+			"../testdata/product_sets/5.json",
 			map[string]checkout.Product{
 				"A": {
 					Price: -412,
@@ -240,8 +239,7 @@ func Test_DecodeProductData(t *testing.T) {
 	for _, testCase := range testCases {
 		// run subtest for each test case
 		t.Run(testCase.name, func(t *testing.T) {
-			testDataPath := "../testdata/product_sets/" + testCase.fileName
-			result, err := checkout.DecodeProductData(testDataPath)
+			result, err := checkout.DecodeProductData(testCase.filePath)
 			// check if err expected
 			if (err != nil) != testCase.expErr {
 				t.Errorf("case: %s, expected err: %v, got err: %v", testCase.name, testCase.expErr, err)
